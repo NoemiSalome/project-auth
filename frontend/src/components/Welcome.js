@@ -7,10 +7,8 @@ import { API_URL } from '../reusable/urls'
 import thoughts from '../reducers/thoughts'
 import user from '../reducers/user'
 
-
-const Main = () => {
+const Welcome = () => {
     const accessToken = useSelector(store => store.user.accessToken)
-    const thoughtsItems = useSelector(store => store.thoughts.items)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -53,10 +51,13 @@ const Main = () => {
     return (
         <div>
             <div>
-                <iframe src="https://giphy.com/embed/3o6YgibKajXglSfqbC" width="480" height="429" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+                <iframe src="https://giphy.com/embed/l0MYC0LajbaPoEADu" width="480" height="277" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                <p>Congratulation to becoming a member of the coolest crowd there is!</p>
+                <p>Don't get confused by the missing content on here. We are cool silently and inactively.</p>
             </div>
             <div>
                 <p>Want to log out?</p>
+                <h2 className="login-title">Now login to enter the memberarea <a href="/">here</a></h2>
                 <button onClick={logout}>Logout</button>
             </div>
 
@@ -64,4 +65,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Welcome

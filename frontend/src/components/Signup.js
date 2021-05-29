@@ -6,7 +6,7 @@ import user from '../reducers/user'
 
 import { API_URL } from '../reusable/urls'
 
-const Login = () => {
+const Signup = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [mode, setMode] = useState(null)
@@ -18,7 +18,7 @@ const Login = () => {
     useEffect(() => {
         //redirect user to '/path
         if (accessToken) {
-            history.push('/')
+            history.push('/welcome')
         }   
     }, [accessToken, history])
 
@@ -50,29 +50,24 @@ const Login = () => {
 
     return (
     <div className="main-wrapper">
-      <h1 className="login-title">Login to get the full experience!</h1>
+      <h1 className="login-title">Nice of you joining!</h1>
         <form className="boxes-wrapper" onSubmit={onFormSubmit}>
-            <p>username</p>
             <input
              className="username-box"
              type="text" 
              value={username} 
              onChange={(e) => setUsername(e.target.value)}
              />
-            <p>password</p>
             <input
                className="password-box"
                type="password"
                value={password}
                onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="signin-button" type='submit' onClick={() => setMode('signin')}>Login</button>
+      <button className="signup-button" type='submit' onClick={() => setMode('signup')}>Sign up</button>
         </form>
-
-      <h2 className="login-title">You are not a member yet? Register <a href="/signup"> here</a></h2>
-
     </div>
     )
 }
 
-export default Login
+export default Signup
