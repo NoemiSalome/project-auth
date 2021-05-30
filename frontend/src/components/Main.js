@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { API_URL } from '../reusable/urls'
 
@@ -10,7 +10,6 @@ import user from '../reducers/user'
 
 const Main = () => {
     const accessToken = useSelector(store => store.user.accessToken)
-    const thoughtsItems = useSelector(store => store.thoughts.items)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -51,15 +50,9 @@ const Main = () => {
     }, [accessToken, dispatch])
 
     return (
-        <div>
-            <div>
-                <iframe src="https://giphy.com/embed/3o6YgibKajXglSfqbC" width="480" height="429" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
-            </div>
-            <div>
-                <p>Want to log out?</p>
-                <button onClick={logout}>Logout</button>
-            </div>
-
+        <div className="main-wrapper">
+            <iframe title="Cool-gif" src="https://giphy.com/embed/3o6YgibKajXglSfqbC" width="350" height="240" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+            <button className="button" onClick={logout}>Logout</button>
         </div>
     )
 }

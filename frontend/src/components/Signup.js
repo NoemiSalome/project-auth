@@ -52,19 +52,21 @@ const Signup = () => {
     <div className="main-wrapper">
       <h1 className="login-title">Nice of you joining!</h1>
         <form className="boxes-wrapper" onSubmit={onFormSubmit}>
+            <p>username</p>
             <input
-             className="username-box"
+             className="input-box"
              type="text" 
              value={username} 
              onChange={(e) => setUsername(e.target.value)}
              />
+            <p>password</p>
             <input
-               className="password-box"
+               className="input-box"
                type="password"
                value={password}
                onChange={(e) => setPassword(e.target.value)}
             />
-      <button className="signup-button" type='submit' onClick={() => setMode('signup')}>Sign up</button>
+      <button className="button" type='submit' onClick={() => setMode('signup')}>Sign up</button>
         </form>
     </div>
     )
