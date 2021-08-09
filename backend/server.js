@@ -3,15 +3,16 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
+import dotenv from 'dotenv'
+import listEndpoints from 'express-list-endpoints' 
+
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useCreateIndex', true); //added due to deprecation error 26868
 mongoose.Promise = Promise
 
-const Thought = mongoose.model('Thought', {
-  greeting: String
-})
 
 const User = mongoose.model('User', {
   username: {
@@ -44,7 +45,7 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 9000
 const app = express()
 
 // Add middlewares to enable cors and json body parsing
@@ -53,7 +54,7 @@ app.use(express.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 //ENDPOINT TO SIGNUP
@@ -80,7 +81,7 @@ app.post('/signup', async (req, res) => {
 })
 
 //ENDPOINT TO AUTHENTICATE THE USER
-app.post('/signin', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { username, password } = req.body
 
   try {
@@ -94,7 +95,7 @@ app.post('/signin', async (req, res) => {
         accessToken: user.accessToken
       })
     } else {
-      res.status(401).json({ success: false, message: 'User is not authorozized and needs to sign in first.' })
+      res.status(401).json({ success: false, message: 'Not authorized' })
     }
   } catch (error) {
     res.status(400).json({ success: false, message: 'Invalid request', error })

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector, batch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, Link } from 'react-router-dom'
 
-import user from '../reducers/user'
-
-import { API_URL } from '../reusable/urls'
+import { sign } from '../reducers/user'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -24,28 +22,7 @@ const Login = () => {
 
     const onFormSubmit = (e) => {
         e.preventDefault()
-
-        const options = {
-            method: 'POST',
-            headers:{
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({ username, password})
-        }
-        fetch(API_URL(mode), options)
-          .then(res => res.json())
-          .then(data => {
-             if (data.success) {
-                batch(() => {//batch updates all the dispatches at the same time, not one at a time
-                    dispatch(user.actions.setUsername(data.username))
-                    dispatch(user.actions.setAccessToken(data.accessToken))
-                    dispatch(user.actions.setErrors(null))
-                })
-            } else {
-                dispatch(user.actions.setErrors(data))
-            }
-        })
-        .catch()
+        dispatch(sign(username, password, mode))
     }
 
     return (
@@ -66,10 +43,9 @@ const Login = () => {
                value={password}
                onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="button" type='submit' onClick={() => setMode('signin')}>Login</button>
+            <button className="button" type='submit' onClick={() => setMode('login')}>Log in</button>
         </form>
-
-      <h3 className="login-title">You are not a member yet? Register <a href="/signup"> here</a></h3>
+        <h3 className="login-title">You are not a member yet? Register <Link to="/signup"> here</Link></h3>    
     </div>
     )
 }

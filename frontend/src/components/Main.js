@@ -7,7 +7,6 @@ import { API_URL } from '../reusable/urls'
 import thoughts from '../reducers/thoughts'
 import user from '../reducers/user'
 
-
 const Main = () => {
     const accessToken = useSelector(store => store.user.accessToken)
 
@@ -18,6 +17,8 @@ const Main = () => {
         batch(() => {
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
+
+            localStorage.removeItem('user')
         })
     }
 
@@ -31,11 +32,11 @@ const Main = () => {
         const options = {
             method: 'GET',
             headers: {
-                Authorization: 'accessToken'//added quotations to accessToken
+                Authorization: accessToken //added quotations to accessToken
             }
         }
 
-        fetch(API_URL('thoughts'), options) //in the lesson it's done with /signin instead
+        fetch(API_URL('thoughts'), options) 
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -51,7 +52,7 @@ const Main = () => {
 
     return (
         <div className="main-wrapper">
-            <iframe title="Cool-gif" src="https://giphy.com/embed/3o6YgibKajXglSfqbC" width="350" height="240" frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+            <h1>So now you can either logout or hop over <a href="https://happy-thoughts-app-estefania.netlify.app/"> here</a>for some single-fun.</h1>
             <button className="button" onClick={logout}>Logout</button>
         </div>
     )

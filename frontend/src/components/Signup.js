@@ -14,6 +14,7 @@ const Signup = () => {
     const accessToken= useSelector(store => store.user.accessToken)    
     const dispatch = useDispatch()
     const history = useHistory()
+    const errors= useSelector(store => store.user.errors )
 
     useEffect(() => {
         //redirect user to '/path
@@ -66,6 +67,7 @@ const Signup = () => {
                value={password}
                onChange={(e) => setPassword(e.target.value)}
             />
+            {errors && <p>something went wrong - sorry buddy. try again (harder)!</p>}
       <button className="button" type='submit' onClick={() => setMode('signup')}>Sign up</button>
         </form>
     </div>
